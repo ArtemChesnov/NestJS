@@ -1,52 +1,60 @@
 import {Get, Injectable} from '@nestjs/common';
-import {v4 as uuidv4} from 'uuid';
+import {AllNews, News, NewsEdit} from "./news.interface";
 
-export interface News {
-    id?: string;
-    title: string;
-    description: string;
-    author: string;
-    countViews?: number;
+export function getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 @Injectable()
 export class NewsService {
-    private readonly news: News[] = [
-        {
-            id: '1',
+    private readonly news: AllNews = {
+        1: {
+            id: 1,
             title: 'Наша первая новость',
             description: 'Ура! Наща первая новость!',
             author: 'Артём',
-            countViews: 3,
+            countView: 3,
         }
-    ]
+    }
 
-    getAllNews(): News[] {
+
+    getAllNews(): AllNews {
         return this.news;
     }
 
-    find(id: News['id']): News | undefined {
-        return this.news.find(news => news.id === id)
+    find(id: number | string): News | undefined {
+        return this.news[id]
     }
 
     create(news: News): News {
-        const newId = uuidv4();
+        const id = getRandomInt(0, 10000) as string | number;
 
-        const newNews = {
-            ...news,
-            id: newId,
-        }
-        this.news.push(newNews);
+        const newNews: News = {id: '1', ...news};
+        this.news[id] = newNews;
+
         return newNews;
     }
 
-    remove(id: string) {
-        const indexRemoveNews = this.news.findIndex((news => news.id === id))
-        if (indexRemoveNews !== -1) {
-            this.news.splice(indexRemoveNews, 1)
-            return true
+    edit(id: number | string, newsEdit: NewsEdit): News | string {
+        if (this.news[id]) {
+            this.news[id] = {
+                ...this.news[id],
+                ...newsEdit
+            }
+            return this.news[id]
         }
-        return false
+        return 'Новость не найдена!'
+    }
+
+    remove(id: number | string): boolean {
+        if (this.news[id]) {
+            delete this.news[id]
+            return true;
+        }
+        return false;
     }
 }
 
