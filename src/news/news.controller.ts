@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Patch,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { NewsEdit, News } from './news.interface';
@@ -14,6 +16,12 @@ import { renderNewsAll } from '../view/news/news-all';
 import { renderTemplate } from '../view/template';
 import { CommentsService } from './comments/comments.service';
 import { renderNewsDetail } from '../view/news/news-detail';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { HelperFileLoad } from '../utils/HelperFileLoad';
+
+const PATH_NEWS = '/static/';
+HelperFileLoad.path = PATH_NEWS;
 
 @Controller('news')
 export class NewsController {
@@ -62,8 +70,23 @@ export class NewsController {
   }
 
   @Post()
-  create(@Body() createNewsDto: News) {
-    return this.newsService.create(createNewsDto);
+  @UseInterceptors(
+    FileInterceptor('cover', {
+      fileFilter: HelperFileLoad.imageFileFilter,
+      storage: diskStorage({
+        destination: HelperFileLoad.destinationPath,
+        filename: HelperFileLoad.customFileName,
+      }),
+    }),
+  )
+  create(
+    @Body() news: CreateNewsDto,
+    @UploadedFile() cover: Express.Multer.File,
+  ) {
+    if (cover?.filename) {
+      news.cover = PATH_NEWS + cover.filename;
+    }
+    return this.newsService.create(news);
   }
 
   @Patch('/:id')
