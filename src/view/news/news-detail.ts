@@ -29,10 +29,14 @@ const renderNewsComments = (comments: Comment[]): string => {
   for (const comment of comments) {
     html += `
             <div class="row">
-                <div class="col-lg-1">
-                    <div style="background-color: #ccc; width: 75px; height: 75px" class="rounded-circle"></div>
+                <div class="col-lg-1 mt-4">
+                ${
+                  comment.cover
+                    ? `<img src=${comment.cover} alt="..."  style="background-color: #ccc; width: 75px; height: 75px" class="rounded-circle"/>`
+                    : '<div style="background-color: #ccc; width: 75px; height: 75px" class="rounded-circle"></div>'
+                }   
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-8 mt-4">
                     <div>${comment.author}</div>
                     <div>${comment.message}</div>
                 </div>

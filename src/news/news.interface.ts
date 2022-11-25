@@ -1,7 +1,7 @@
 import { Comment } from './comments/comments.interface';
 
 export interface News {
-  id: string | number;
+  id?: string | number;
   title: string;
   description: string;
   author: string;
