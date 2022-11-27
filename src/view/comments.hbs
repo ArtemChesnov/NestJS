@@ -1,0 +1,33 @@
+{{#if comments}}
+  <div class='row'>
+    {{#each comments}}
+      <div class='col-lg-6'>
+        <div class='card mb-2'>
+          {{#if this.cover}}
+            <img
+              src="{{this.cover}}"
+              alt='...'
+              style='background-color: #ccc; width: 75px; height: 75px'
+              class='rounded-circle'
+            />
+          {{/if}}
+          <div class='card-body'>
+            <p class='card-text'>
+              {{this.message}}
+            </p>
+            <h6 class='card-subtitle mb-2 text-muted'>
+              Автор: {{this.author}}
+            </h6>
+            <h6 class='card-subtitle mb-2 text-muted'>
+              Дата создания: {{this.createdAt}}
+            </h6>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <h1>
+    Список комментариев пуст!
+  </h1>
+{{/if}}

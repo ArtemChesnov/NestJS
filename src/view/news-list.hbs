@@ -1,0 +1,83 @@
+{{#if news}}
+  <div class='row'>
+    <h1 style='text-align:center'>
+      Список новостей
+    </h1>
+    {{#each news}}
+      <div class='col-lg-6'>
+        <div class='card m-4'>
+          <img
+            src='{{this.cover}}'
+            class='card-img-top'
+            style='height: 200px; object-fit: cover;'
+            alt=''
+          />
+          <div class='card-body'>
+            <h5 class='card-title'>
+              {{this.title}}
+            </h5>
+            <h6 class='card-subtitle mb-2 text-muted'>
+              Автор:
+              {{this.author}}
+            </h6>
+            <h6 class='card-subtitle mb-2 text-muted'>
+              Дата создания:
+              {{this.createdAt}}
+            </h6>
+            <p class='card-text'>
+              {{this.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <h2 style='text-align:center' class='my-3'>Написать новость</h2>
+    <iframe
+      width='0'
+      height='0'
+      border='0'
+      name='dummyframe'
+      id='dummyframe'
+    ></iframe>
+    <form
+      class='upload-form mb-4 card'
+      style='border: 1px solid gray; padding:10px; border-raduis: 2px;'
+      method='POST'
+      enctype='multipart/form-data'
+      target='dummyframe'
+      action='http://localhost:3000/news/add'
+    >
+      <input
+        type='text'
+        class='form-control mb-2'
+        name='title'
+        pattern='[А-я]{1,35}'
+        placeholder='Заголовок'
+        required
+      />
+      <textarea
+        name='description'
+        class='form-control mb-3'
+        placeholder='Описание'
+        required
+      ></textarea>
+      <input
+        type='text'
+        class='form-control mb-2'
+        name='author'
+        pattern='[А-я]{1,15}'
+        placeholder='Автор'
+        required
+      />
+      <input type='file' class='form-control mb-1' name='cover' />
+      <br />
+      <button type='submit' class='btn btn-outline-secondary'>
+        Отправить
+      </button>
+    </form>
+  </div>
+{{else}}
+  <h1>
+    Список новостей пуст!
+  </h1>
+{{/if}}

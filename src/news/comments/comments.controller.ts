@@ -8,6 +8,7 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  Render,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment, CommentEdit } from './comments.interface';
@@ -23,8 +24,10 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Get('/:newsId')
+  @Render('comments')
   get(@Param('newsId') newsId: string | number) {
-    return this.commentsService.find(newsId);
+    const comments = this.commentsService.find(newsId);
+    return { comments };
   }
 
   @Post('/:newsId')

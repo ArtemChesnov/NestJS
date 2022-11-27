@@ -18,6 +18,30 @@ export class NewsService {
       description: 'Ура! Наша первая новость!',
       author: 'Артём',
       countView: 3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cover:
+        'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
+    },
+    2: {
+      id: 1,
+      title: 'Наша вторая новость',
+      description: 'Ура! Наша вторая новость!',
+      author: 'Вася',
+      countView: 3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cover:
+        'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
+    },
+    3: {
+      id: 1,
+      title: 'Наша третья новость',
+      description: 'Ура! Наша третья новость!',
+      author: 'Тема',
+      countView: 3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       cover:
         'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
     },
@@ -33,7 +57,12 @@ export class NewsService {
 
   create(news: News): News {
     const id = getRandomInt(0, 10000) as string | number;
-    const newNews: News = { id: '1', ...news };
+    const newNews: News = {
+      id: '1',
+      ...news,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     this.news[id] = newNews;
 
     return newNews;
