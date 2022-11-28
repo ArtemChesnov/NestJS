@@ -7,6 +7,8 @@ export interface News {
   author: string;
   countView?: number;
   cover?: string;
+  createdAt?: object;
+  updatedAt?: object;
   comments?: Comment[];
 }
 

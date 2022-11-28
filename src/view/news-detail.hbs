@@ -1,0 +1,101 @@
+{{#if news}}
+  <div class='row'>
+    <div class='col-lg-6'>
+      <div class='card'>
+        {{#if news.cover}}
+          <img
+            src="{{news.cover}}"
+            class='card-img-top'
+            style='height: 200px; object-fit: cover;'
+            alt=''
+          />
+        {{/if}}
+        <div class='card-body'>
+          <h5 class='card-title'>
+            {{news.title}}
+          </h5>
+          <h6 class='card-subtitle mb-2 text-muted'>
+            Автор: {{news.author}}
+          </h6>
+          <h6 class='card-subtitle mb-2 text-muted'>
+            Дата создания: {{news.createdAt}}
+          </h6>
+          <p class='card-text'>
+            {{news.description}}
+          </p>
+          <p class='card-text'>
+            {{news.text}}
+          </p>
+          <iframe
+            width='0'
+            height='0'
+            border='0'
+            name='dummyframe'
+            id='dummyframe'
+          ></iframe>
+          <form
+            class='upload-form mb-4 card'
+            style='border: 1px solid gray; padding:10px; border-raduis: 2px;'
+            method='POST'
+            enctype='multipart/form-data'
+            target='dummyframe'
+            action="http://localhost:3000/comments/{{news.id}}"
+          >
+            <p>
+              Оставить комментарий:
+            </p>
+            <input
+              type='text'
+              class='form-control mb-2'
+              name='author'
+              pattern='[А-я]{1,15}'
+              placeholder='Автор'
+              required
+            />
+            <textarea
+              name='message'
+              class='form-control mb-3'
+              placeholder='Сообщение'
+              required
+            ></textarea>
+            <input type='file' class='form-control  mb-1' name='cover' />
+            <br />
+            <button type='submit' class='btn btn-outline-secondary'>
+              Отправить
+            </button>
+          </form>
+          Комменты:
+          {{#each comments}}
+            <div class='col-lg-6'>
+              <div class='card mb-2'>
+                {{#if this.cover}}
+                  <img
+                    src="{{this.cover}}"
+                    alt='...'
+                    style='background-color: #ccc; width: 75px; height: 75px'
+                    class='rounded-circle'
+                  />
+                {{/if}}
+                <div class='card-body'>
+                  <p class='card-text'>
+                    {{this.message}}
+                  </p>
+                  <h6 class='card-subtitle mb-2 text-muted'>
+                    Автор: {{this.author}}
+                  </h6>
+                  <h6 class='card-subtitle mb-2 text-muted'>
+                    Дата создания: {{this.createdAt}}
+                  </h6>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <h1>
+    Новость не найдена!
+  </h1>
+{{/if}}

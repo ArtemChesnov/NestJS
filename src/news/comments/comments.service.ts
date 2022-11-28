@@ -10,6 +10,10 @@ export class CommentsService {
         id: 123,
         message: 'Мой первый комментарий',
         author: 'Вася',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        cover:
+          'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
       },
     ],
   };
@@ -29,7 +33,12 @@ export class CommentsService {
       this.comments[newsId] = [];
     }
 
-    this.comments[newsId].push({ id, ...comment });
+    this.comments[newsId].push({
+      id,
+      ...comment,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return comment;
   }
 

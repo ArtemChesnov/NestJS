@@ -21,6 +21,8 @@ export class CreateNewsDto {
   @IsString()
   @IsOptional()
   countView?: number;
+  createdAt: object;
+  updatedAt: object;
 
   cover: string;
 }

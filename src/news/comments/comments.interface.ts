@@ -3,6 +3,8 @@ export interface Comment {
   message: string;
   author: string;
   cover?: string;
+  createdAt?: object,
+    updatedAt?: object,
 }
 
 export type Comments = Record<string | number, Comment[]>;
