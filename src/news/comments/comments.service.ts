@@ -16,6 +16,17 @@ export class CommentsService {
           'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
       },
     ],
+    2: [
+      {
+        id: 114,
+        message: 'Мой первый комментарий',
+        author: 'Артем',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        cover:
+          'https://i.pinimg.com/originals/c7/8a/1f/c78a1ff26086681a2712a0477504b785.jpg',
+      },
+    ],
   };
 
   find(newsId: string | number): Comment[] | string {

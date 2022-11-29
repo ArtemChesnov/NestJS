@@ -5,7 +5,7 @@
         <div class='card mb-2'>
           {{#if this.cover}}
             <img
-              src="{{this.cover}}"
+              src='{{this.cover}}'
               alt='...'
               style='background-color: #ccc; width: 75px; height: 75px'
               class='rounded-circle'
@@ -16,10 +16,12 @@
               {{this.message}}
             </p>
             <h6 class='card-subtitle mb-2 text-muted'>
-              Автор: {{this.author}}
+              Автор:
+              {{this.author}}
             </h6>
             <h6 class='card-subtitle mb-2 text-muted'>
-              Дата создания: {{this.createdAt}}
+              Дата создания:
+              {{this.createdAt}}
             </h6>
           </div>
         </div>

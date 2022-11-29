@@ -2,9 +2,12 @@
   <div class='row'>
     <div class='col-lg-6'>
       <div class='card'>
+        <button
+          onclick="window.location.href = '/news/edit/{{this.id}}'"
+        >изменить</button>
         {{#if news.cover}}
           <img
-            src="{{news.cover}}"
+            src='{{news.cover}}'
             class='card-img-top'
             style='height: 200px; object-fit: cover;'
             alt=''
@@ -15,10 +18,12 @@
             {{news.title}}
           </h5>
           <h6 class='card-subtitle mb-2 text-muted'>
-            Автор: {{news.author}}
+            Автор:
+            {{news.author}}
           </h6>
           <h6 class='card-subtitle mb-2 text-muted'>
-            Дата создания: {{news.createdAt}}
+            Дата создания:
+            {{news.createdAt}}
           </h6>
           <p class='card-text'>
             {{news.description}}
@@ -39,7 +44,7 @@
             method='POST'
             enctype='multipart/form-data'
             target='dummyframe'
-            action="http://localhost:3000/comments/{{news.id}}"
+            action='http://localhost:3000/comments/{{news.id}}'
           >
             <p>
               Оставить комментарий:
@@ -58,9 +63,13 @@
               placeholder='Сообщение'
               required
             ></textarea>
-            <input type='file' class='form-control  mb-1' name='cover' />
+            <input type='file' class='form-control mb-1' name='cover' />
             <br />
-            <button type='submit' class='btn btn-outline-secondary'>
+            <button
+              type='submit'
+              class='btn btn-outline-secondary'
+              onclick="window.location.href = '/news/{{news.id}}/detail'"
+            >
               Отправить
             </button>
           </form>
@@ -70,7 +79,7 @@
               <div class='card mb-2'>
                 {{#if this.cover}}
                   <img
-                    src="{{this.cover}}"
+                    src='{{this.cover}}'
                     alt='...'
                     style='background-color: #ccc; width: 75px; height: 75px'
                     class='rounded-circle'
@@ -81,10 +90,12 @@
                     {{this.message}}
                   </p>
                   <h6 class='card-subtitle mb-2 text-muted'>
-                    Автор: {{this.author}}
+                    Автор:
+                    {{this.author}}
                   </h6>
                   <h6 class='card-subtitle mb-2 text-muted'>
-                    Дата создания: {{this.createdAt}}
+                    Дата создания:
+                    {{this.createdAt}}
                   </h6>
                 </div>
               </div>

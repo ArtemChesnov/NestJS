@@ -43,14 +43,7 @@ export class NewsController {
   getAll() {
     const news = this.newsService.getAllNews();
 
-    // const content = renderNewsAll(news);
-
-    // return renderTemplate(content, {
-    //   title: 'Список новостей',
-    //   description: 'Самые крутые новости на свете',
-    // });
-
-    return news;
+    return { news };
   }
 
   @Get(':id/detail')
@@ -65,16 +58,16 @@ export class NewsController {
     };
   }
 
-  @Get(':id')
-  get(@Param('id') id: number) {
-    const news = this.newsService.find(id);
-    const comments = this.commentsService.find(id);
+  // @Get(':id')
+  // get(@Param('id') id: number) {
+  //   const news = this.newsService.find(id);
+  //   const comments = this.commentsService.find(id);
 
-    return {
-      news,
-      comments,
-    };
-  }
+  //   return {
+  //     news,
+  //     comments,
+  //   };
+  // }
 
   @Post('add')
   @UseInterceptors(
@@ -97,7 +90,14 @@ export class NewsController {
     return this.newsService.create(news);
   }
 
+  @Get('create/news')
+  @Render('create-news')
+  async createView() {
+    return {};
+  }
+
   @Patch(':id')
+
   edit(@Param('id') id: number, @Body() news: NewsEdit) {
     return this.newsService.edit(id, news);
   }

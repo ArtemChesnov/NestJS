@@ -1,0 +1,68 @@
+<h2 style='text-align:center' class='my-3'>Написать новость</h2>
+<iframe
+  width='0'
+  height='0'
+  border='0'
+  name='dummyframe'
+  id='dummyframe'
+></iframe>
+<form
+  class='upload-form mb-4 card'
+  style='border: 1px solid gray; padding:10px; border-raduis: 2px;'
+  method='post'
+  enctype='multipart/form-data'
+  target='dummyframe'
+  action='/news/add'
+>
+  <input
+    type='text'
+    class='form-control mb-2'
+    name='title'
+    pattern='[А-я]{1,35}'
+    placeholder='Заголовок'
+    required
+  />
+  <textarea
+    name='description'
+    class='form-control mb-3'
+    placeholder='Описание'
+    required
+  ></textarea>
+  <input
+    type='text'
+    class='form-control mb-2'
+    name='author'
+    pattern='[А-я]{1,15}'
+    placeholder='Автор'
+    required
+  />
+  <input type='file' class='form-control-file mb-1' name='cover' />
+  <br />
+  <button type='submit' class='btn btn-outline-secondary' onclick='sendForm()'>
+    Отправить
+  </button>
+</form>
+
+<script>
+  Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+  });
+  document.getElementById('dateInput').value = new Date().toDateInputValue();
+  function sendForm() {
+    var data = new FormData($('form')[0]);
+    $.ajax({
+      url: '/news/add',
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      method: 'POST',
+      success: function() {
+        alert('Новость создана')
+        window.location.href = '/news/all';
+      }
+    });
+  }
+</script>
